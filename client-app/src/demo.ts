@@ -17,5 +17,5 @@ export interface ICar {
 }
 export const cars=[car1,car2];
 const mutiply=(x:number,y:number)=>{
-      (x*y);
+     return (x*y);
 }
