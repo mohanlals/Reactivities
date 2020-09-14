@@ -16,23 +16,23 @@ namespace API
     {
         public static void Main(string[] args)
         {
-        
-        var host=    CreateHostBuilder(args).Build();
-        using (var scope=host.Services.CreateScope())
-        {
+
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
                 try
                 {
-     var context= scope.ServiceProvider.GetRequiredService<DataContext>();
-     context.Database.Migrate();
+                    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+                    context.Database.Migrate();
 
- }
- catch(Exception ex)
- {
-var logger= scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-logger.LogError(ex,"An error occured during migration");
- }
-        }
-host.Run();
+                }
+                catch (Exception ex)
+                {
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occured during migration");
+                }
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
