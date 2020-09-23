@@ -1,19 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { cars } from './demo';
-import CarItem from './CarItem';
-function App() {
-  return (
+import React, { Component } from "react";
+import { Header, Icon, List } from "semantic-ui-react";
+import "./App.css";
+import { cars } from "./demo";
+import CarItem from "./CarItem";
+import axios from "axios";
+class App extends Component {
+  state = {
+    values: [],
+  };
+  componentDidMount() {
+    axios.get("http://localhost:5000/api/values").then((response) => {
+    
+      this.setState({
+        values: response.data,
+      });
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Header as="h2">
+          <Icon name="users" />
+          <Header.Content>Reactivity</Header.Content>
+        </Header>
 
-    <div className="App">
-     {cars.map((car)=>(
-      <CarItem  car={car}/>
-     )
-
-   
-  )}
-  </div>
-
-  )}
+        <List>
+          {this.state.values.map((value: any) => (
+            <List.Item key={value.id}>{value.name}</List.Item>
+          ))}
+        </List>
+      </div>
+    );
+  }
+}
 export default App;
